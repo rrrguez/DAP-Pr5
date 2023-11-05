@@ -1,0 +1,53 @@
+@startuml
+class pr5.state_pattern.concrete_states.RedState {
++ TrafficLightState nextState()
++ String getImagePath()
++ void playSound()
+}
+class pr5.state_pattern.context.TrafficLight {
+- TrafficLightState currentState
++ TrafficLightState getCurrentState()
++ void changeState()
+}
+abstract class pr5.state_pattern.state.TrafficLightState {
+- int duration
++ int getDuration()
++ {abstract}TrafficLightState nextState()
++ {abstract}String getImagePath()
++ {abstract}void playSound()
+# void playSoundFile(String)
+}
+class pr5.gui.MainGUI {
+- TrafficLight controller
+- JLabel imageLabel
+- void updateGUI()
++ {static} void main(String[])
+}
+class pr5.gui.MainGUI$StateChangeTask {
++ void run()
+}
+class pr5.state_pattern.concrete_states.IntermittentGreenState {
++ TrafficLightState nextState()
++ String getImagePath()
++ void playSound()
+}
+class pr5.state_pattern.concrete_states.YellowState {
++ TrafficLightState nextState()
++ String getImagePath()
++ void playSound()
+}
+class pr5.state_pattern.concrete_states.GreenState {
++ TrafficLightState nextState()
++ String getImagePath()
++ void playSound()
+}
+
+
+pr5.state_pattern.state.TrafficLightState <|-- pr5.state_pattern.concrete_states.RedState
+pr5.gui.JFrame <|-- pr5.gui.MainGUI
+pr5.gui.MainGUI +. pr5.gui.MainGUI$StateChangeTask
+pr5.gui.Runnable <|.. pr5.gui.MainGUI$StateChangeTask
+pr5.state_pattern.state.TrafficLightState <|-- pr5.state_pattern.concrete_states.IntermittentGreenState
+pr5.state_pattern.state.TrafficLightState <|-- pr5.state_pattern.concrete_states.YellowState
+pr5.state_pattern.state.TrafficLightState <|-- pr5.state_pattern.concrete_states.GreenState
+@enduml
